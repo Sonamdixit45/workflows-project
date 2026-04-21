@@ -1,0 +1,971 @@
+1. What will be the output of the following code?
+
+class Test {
+    private int x;
+
+    Test() {
+        this.x = 10;
+    }
+
+    Test(Test obj) {
+        this.x = obj.x + 10;
+    }
+
+    void display() {
+        System.out.println("x = " + x);
+    }
+
+    public static void main(String[] args) {
+        Test t1 = new Test();
+        Test t2 = new Test(t1);
+        t2.display();
+    }
+}
+A) x = 10
+B) x = 20
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: B) x = 20
+
+🔹 Explanation: The copy constructor Test(Test obj) initializes x as obj.x + 10, where obj.x = 10. So, t2.x = 10 + 10 = 20.
+
+2. What will be the output of the following code?
+class Demo {
+    int a = 5;
+
+    Demo() {
+        this(10);
+        System.out.println("Default Constructor");
+    }
+
+    Demo(int x) {
+        System.out.println("Parameterized Constructor: " + x);
+    }
+
+    public static void main(String[] args) {
+        new Demo();
+    }
+}
+A) Default Constructor
+B) Parameterized Constructor: 10
+Default Constructor
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: B) Parameterized Constructor: 10
+          Default Constructor
+
+🔹 Explanation: The this(10) in the default constructor calls the parameterized constructor first. Java allows constructor chaining, so the parameterized constructor executes first, followed by the default constructor.
+
+3. What is the output of the following program?
+class WrapperDemo {
+    public static void main(String[] args) {
+        Integer x = 100;
+        Integer y = 100;
+        Integer z = 200;
+        Integer w = 200;
+
+        System.out.println(x == y);
+        System.out.println(z == w);
+    }
+}
+A) true false
+B) false true
+C) true true
+D) false false
+
+✅ Answer: A) true false
+
+🔹 Explanation: Integer caching occurs for values between -128 and 127. Since x and y are within this range, they reference the same object, while z and w do not.
+
+4. What will be the output of the following code?
+class Example {
+    private Example() {
+        System.out.println("Private Constructor");
+    }
+
+    public static Example getInstance() {
+        return new Example();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Example obj = Example.getInstance();
+    }
+}
+A) Private Constructor
+B) Compilation Error
+C) Runtime Error
+D) No Output
+
+✅ Answer: A) Private Constructor
+
+🔹 Explanation: A private constructor is used in singleton patterns. The object can only be created via a static method (getInstance), and it successfully calls the private constructor.
+
+5. What will be the output of the following program?
+class A {
+    static int x = 10;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A obj1 = new A();
+        A obj2 = new A();
+        obj2.x = 20;
+        System.out.println(obj1.x);
+    }
+}
+A) 10
+B) 20
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: B) 20
+
+🔹 Explanation: Static variables are shared among all instances. Changing obj2.x to 20 also updates obj1.x.
+
+6. Which statement is true about the following Java code?
+class Test {
+    public int x;
+    private int y;
+
+    void show() {
+        System.out.println(x + " " + y);
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Test t = new Test();
+        t.x = 5;
+        t.y = 10;
+        t.show();
+    }
+}
+A) 5 10
+B) Compilation Error
+C) Runtime Error
+D) Undefined Behavior
+
+✅ Answer: B) Compilation Error
+
+🔹 Explanation: The private variable y cannot be accessed outside the class Test, causing a compilation error in t.y = 10;.
+
+7. What will be the output of the following Java code?
+class WrapperTest {
+    public static void main(String[] args) {
+        Integer a = 128;
+        Integer b = 128;
+        System.out.println(a.equals(b));
+        System.out.println(a == b);
+    }
+}
+A) true true
+B) false false
+C) true false
+D) false true
+
+✅ Answer: C) true false
+
+🔹 Explanation: equals() checks content equality (returns true), while == checks reference equality (returns false since values beyond 127 are not cached).
+
+8. What will happen if the following constructor is defined in Java?
+class MyClass {
+    MyClass() {
+        this(10);
+        System.out.println("Default constructor");
+    }
+    
+    MyClass(int x) {
+        this();
+        System.out.println("Parameterized constructor");
+    }
+}
+A) It will print both constructor messages.
+B) Compilation Error (Recursive constructor call).
+C) Only the default constructor will execute.
+D) It will cause a stack overflow.
+
+✅ Answer: B) Compilation Error
+
+🔹 Explanation: Infinite constructor recursion occurs (this(10) calls this(), which again calls this(10), causing a cycle), resulting in a compilation error.
+
+9. What will be the output of the following Java code?
+public class Example {
+    int x;
+    
+    Example() {
+        x = 10;
+    }
+    
+    void show() {
+        System.out.println(x);
+    }
+
+    public static void main(String args[]) {
+        Example e = null;
+        e.show();
+    }
+}
+A) 10
+B) Compilation Error
+C) NullPointerException
+D) Undefined Behavior
+
+✅ Answer: C) NullPointerException
+
+🔹 Explanation: Since e is null, calling e.show() leads to a NullPointerException.
+
+10. What will be the output of the following Java code?
+class Example {
+    static {
+        System.out.println("Static Block");
+    }
+
+    Example() {
+        System.out.println("Constructor");
+    }
+}
+
+public class Main {
+    public static void main(String args[]) {
+        Example e1 = new Example();
+        Example e2 = new Example();
+    }
+}
+A) Constructor
+Constructor
+B) Static Block
+Constructor
+Constructor
+C) Static Block
+Static Block
+Constructor
+Constructor
+D) Compilation Error
+
+✅ Answer: B) Static Block
+          Constructor
+          Constructor
+
+🔹 Explanation: Static blocks execute only once, before object creation, while constructors execute each time an object is instantiated.
+
+11. What will be the output of the following Java program?
+class Test {
+    static int x = 10;
+    int y = 20;
+
+    void show() {
+        System.out.println("x: " + x + ", y: " + y);
+    }
+
+    public static void main(String[] args) {
+        Test obj1 = new Test();
+        Test obj2 = new Test();
+        obj1.x = 50;
+        obj1.y = 100;
+        obj2.show();
+    }
+}
+A) x: 50, y: 20
+B) x: 10, y: 20
+C) x: 50, y: 100
+D) Compilation Error
+
+✅ Answer: A) x: 50, y: 20
+
+12. What will be the output of the following code?
+class Demo {
+    int x = 5;
+
+    void display() {
+        int x = 10;
+        System.out.println(this.x);
+    }
+
+    public static void main(String[] args) {
+        new Demo().display();
+    }
+}
+A) 5
+B) 10
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: A) 5
+
+13. What will be the output of the following program?
+class Example {
+    int a;
+    Example(int a) {
+        this.a = a;
+    }
+
+    Example getInstance() {
+        return this;
+    }
+
+    void show() {
+        System.out.println(a);
+    }
+
+    public static void main(String[] args) {
+        Example obj = new Example(50);
+        obj.getInstance().show();
+    }
+}
+A) 50
+B) 0
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: A) 50
+
+14. What will be the output of the following program?
+class Test {
+    void print(int a) {
+        System.out.println("Integer: " + a);
+    }
+
+    void print(double a) {
+        System.out.println("Double: " + a);
+    }
+
+    public static void main(String[] args) {
+        Test obj = new Test();
+        obj.print(5);
+        obj.print(5.5);
+    }
+}
+A) Integer: 5
+    Double: 5.5
+
+B) Compilation Error
+
+C) Integer: 5
+    Integer: 5
+
+D) Double: 5.0
+    Double: 5.5
+
+✅ Answer: A) Integer: 5
+    Double: 5.5
+
+15. What will be the output of the following code?
+class Parent {
+    static void display() {
+        System.out.println("Static method in Parent");
+    }
+}
+
+class Child extends Parent {
+    static void display() {
+        System.out.println("Static method in Child");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent obj = new Child();
+        obj.display();
+    }
+}
+A) Static method in Parent
+B) Static method in Child
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: A) Static method in Parent
+(Static methods are not overridden; method hiding occurs.)
+
+16. What will be the output of the following program?
+class Sample {
+    Sample() {
+        this(10);
+        System.out.println("No-argument constructor");
+    }
+
+    Sample(int x) {
+        System.out.println("Parameterized constructor: " + x);
+    }
+
+    public static void main(String[] args) {
+        Sample obj = new Sample();
+    }
+}
+A) No-argument constructor
+    Parameterized constructor: 10
+
+B) Parameterized constructor: 10
+    No-argument constructor
+
+C) Compilation Error
+
+D) Runtime Error
+
+✅ Answer: B) Parameterized constructor: 10
+    No-argument constructor
+
+17. What will be the output of the following Java program?
+class Counter {
+    static int count = 0;
+
+    Counter() {
+        count++;
+        System.out.println(count);
+    }
+
+    public static void main(String[] args) {
+        Counter c1 = new Counter();
+        Counter c2 = new Counter();
+        Counter c3 = new Counter();
+    }
+}
+A) 1 1 1
+B) 1 2 3
+C) Compilation Error
+D) 3 3 3
+
+✅ Answer: B) 1 2 3
+
+18. What will be the output of the following program?
+class Test {
+    static int a = 10;
+
+    static {
+        a = 20;
+        System.out.println("Static block executed");
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Main method executed");
+        System.out.println("a = " + a);
+    }
+}
+A) Static block executed
+    Main method executed
+    a = 10
+
+B) Main method executed
+    Static block executed
+    a = 20
+
+C) Static block executed
+    Main method executed
+    a = 20
+
+D) Compilation Error
+
+✅ Answer: C) Static block executed
+    Main method executed
+    a = 20
+
+19. What will be the output of the following program?
+class A {
+    void show() {
+        System.out.println("Class A");
+    }
+}
+
+class B extends A {
+    void show(int x) {
+        System.out.println("Class B: " + x);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        B obj = new B();
+        obj.show();
+    }
+}
+A) Class A
+B) Class B: 0
+C) Compilation Error
+D) Runtime Error
+
+✅ Answer: A) Class A
+(Method overloading does not override the parent method.)
+
+20. What will be the output of the following Java program?
+
+class Test {
+    static int x = 10;
+
+    Test() {
+        x += 5;
+    }
+
+    static void show() {
+        System.out.println("x = " + x);
+    }
+
+    public static void main(String[] args) {
+        Test obj1 = new Test();
+        Test obj2 = new Test();
+        Test.show();
+    }
+}
+A) x = 10
+B) x = 15
+C) x = 20
+D) Compilation Error
+
+✅ Answer: C) x = 20
+
+21. What will be the output of the following code?
+class Parent {
+    int x = 10;
+    
+    void show() {
+        System.out.println("Parent: " + x);
+    }
+}
+
+class Child extends Parent {
+    int x = 20;
+    
+    void show() {
+        System.out.println("Child: " + x);
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent obj = new Child();
+        obj.show();
+    }
+}
+a) Parent: 10
+b) Child: 10
+c) Child: 20
+d) Parent: 20
+✅ Answer: c) Child: 20
+Explanation: Since show() is overridden in the Child class, dynamic method dispatch ensures the method in Child is called, and it prints Child: 20.
+
+22. What will be the output of the following code?
+class A {
+    A() {
+        System.out.println("A Constructor");
+    }
+}
+
+class B extends A {
+    B() {
+        System.out.println("B Constructor");
+    }
+}
+
+class C extends B {
+    C() {
+        System.out.println("C Constructor");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        C obj = new C();
+    }
+}
+a) C Constructor
+b) B Constructor
+c) A Constructor
+d) A Constructor → B Constructor → C Constructor
+✅ Answer: d) A Constructor → B Constructor → C Constructor
+Explanation: When an object of C is created, the constructor of A is called first, then B, and finally C due to constructor chaining.
+
+23. What is the output of the following program?
+class Parent {
+    void display() {
+        System.out.println("Parent display");
+    }
+}
+
+class Child extends Parent {
+    void display() {
+        super.display();
+        System.out.println("Child display");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        obj.display();
+    }
+}
+a) Parent display
+b) Child display
+c) Parent display → Child display
+d) Compilation Error
+✅ Answer: c) Parent display → Child display
+Explanation: super.display(); calls the parent class method before executing the Child class method.
+
+24. What will happen if we make the following change in the above program?
+Change
+
+void display() {
+    super.display();
+}
+to
+void display() {
+    this.display();
+}
+a) Parent display → Child display
+b) Compilation Error
+c) Runtime Error (StackOverflowError)
+d) No Output
+✅ Answer: c) Runtime Error (StackOverflowError)
+Explanation: this.display(); causes an infinite recursive call because display() calls itself indefinitely.
+
+25. What will be the output of the following code?
+class A {
+    static void show() {
+        System.out.println("A show");
+    }
+}
+
+class B extends A {
+    static void show() {
+        System.out.println("B show");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        A obj = new B();
+        obj.show();
+    }
+}
+a) A show
+b) B show
+c) Compilation Error
+d) Runtime Error
+✅ Answer: a) A show
+Explanation: Static methods do not support runtime polymorphism. The method resolution happens at compile-time based on the reference type.
+
+26. What will be the output of the following code?
+class A {
+    int x = 10;
+}
+
+class B extends A {
+    int x = 20;
+}
+
+public class Test {
+    public static void main(String[] args) {
+        A obj = new B();
+        System.out.println(obj.x);
+    }
+}
+a) 10
+b) 20
+c) Compilation Error
+d) Runtime Error
+✅ Answer: a) 10
+Explanation: Variable hiding occurs here. Even though obj refers to B, variable resolution depends on reference type (A).
+
+27. Which of the following is true about method overriding?
+a) Overriding method can have a weaker access modifier
+b) Overriding method cannot throw any checked exception
+c) Overriding method must have the same return type or a covariant return type
+d) Static methods can be overridden
+✅ Answer: c) Overriding method must have the same return type or a covariant return type
+Explanation: In method overriding, return types must be same or covariant.
+
+28. What is the output of the following program?
+class Parent {
+    Parent() {
+        System.out.println("Parent Constructor");
+    }
+}
+
+class Child extends Parent {
+    Child() {
+        System.out.println("Child Constructor");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent obj = new Child();
+    }
+}
+a) Child Constructor
+b) Parent Constructor
+c) Parent Constructor → Child Constructor
+d) Compilation Error
+✅ Answer: c) Parent Constructor → Child Constructor
+Explanation: When new Child(); is called, the Parent constructor executes first due to constructor chaining.
+
+29. What happens if the super keyword is used after the first statement inside a constructor?
+a) Compilation error
+b) Runs normally
+c) Calls parent constructor first
+d) Parent constructor is ignored
+✅ Answer: a) Compilation error
+Explanation: super(); must be the first statement inside a constructor.
+
+30. What will be the output of the following code?
+class A {
+    void show() {
+        System.out.println("A show");
+    }
+}
+
+class B extends A {
+    void show() throws RuntimeException {
+        System.out.println("B show");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        A obj = new B();
+        obj.show();
+    }
+}
+a) A show
+b) B show
+c) Compilation Error
+d) Runtime Exception
+✅ Answer: b) B show
+Explanation: Runtime exceptions are unchecked, so the overridden method can throw them freely.
+
+31. What will be the output of the following Java program?
+
+abstract class A {
+    abstract void show();
+}
+
+class B extends A {
+    void show() {
+        System.out.println("Class B show");
+    }
+}
+
+class C extends A {
+    void show() {
+        System.out.println("Class C show");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A obj;
+        obj = new B();
+        obj.show();
+        obj = new C();
+        obj.show();
+    }
+}
+A) Compilation Error
+B) Runtime Error
+C) Class B show
+Class C show
+D) Class C show
+Class B show
+
+✔ Answer: C)
+
+32. What is the output of the following program?
+class Parent {
+    void show() {
+        System.out.println("Parent show");
+    }
+}
+
+class Child extends Parent {
+    void show() {
+        System.out.println("Child show");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}
+A) Parent show
+B) Child show
+C) Compilation Error
+D) Runtime Error
+
+✔ Answer: B)
+
+33. What will happen if we try to instantiate an abstract class?
+abstract class Animal {
+    abstract void makeSound();
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Animal a = new Animal();
+        a.makeSound();
+    }
+}
+A) Compiles Successfully and Prints Nothing
+B) Compilation Error
+C) Runtime Error
+D) No Output
+
+✔ Answer: B)
+
+34. Consider the following code snippet. What will be the output?
+abstract class Base {
+    final void display() {
+        System.out.println("Base class display");
+    }
+}
+
+class Derived extends Base {
+    void display() {
+        System.out.println("Derived class display");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Base obj = new Derived();
+        obj.display();
+    }
+}
+A) Base class display
+B) Derived class display
+C) Compilation Error
+D) Runtime Error
+
+✔ Answer: C)
+
+35. What will be the output of the following Java code?
+class Parent {
+    final void show() {
+        System.out.println("Parent show");
+    }
+}
+
+class Child extends Parent {
+    void show() {
+        System.out.println("Child show");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.show();
+    }
+}
+A) Parent show
+B) Child show
+C) Compilation Error
+D) Runtime Error
+
+✔ Answer: C)
+
+36. What happens when we declare a method final in Java?
+A) It can be overridden in a subclass
+B) It cannot be inherited
+C) It cannot be overridden in a subclass
+D) It is only accessible inside the class where it is declared
+
+✔ Answer: C)
+
+37. What will be the output of the following Java program?
+class A {
+    void show() {
+        System.out.println("Class A show");
+    }
+}
+
+class B extends A {
+    void show() {
+        System.out.println("Class B show");
+    }
+}
+
+class C extends B {
+    void show() {
+        System.out.println("Class C show");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        A obj = new C();
+        obj.show();
+    }
+}
+A) Class A show
+B) Class B show
+C) Class C show
+D) Compilation Error
+
+✔ Answer: C)
+
+38. What happens if a class is declared final in Java?
+A) It can be subclassed
+B) It cannot be subclassed
+C) It cannot have methods
+D) It cannot be instantiated
+
+✔ Answer: B)
+
+39. What will be the output of the following Java program?
+class Parent {
+    void display() {
+        System.out.println("Parent class");
+    }
+}
+
+class Child extends Parent {
+    void display() {
+        System.out.println("Child class");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parent p = new Parent();
+        p.display();
+        p = new Child();
+        p.display();
+    }
+}
+A) Parent class
+Parent class
+B) Parent class
+Child class
+C) Child class
+Child class
+D) Compilation Error
+
+✔ Answer: B)
+
+40. What will be the output of the following Java code?
+abstract class X {
+    abstract void display();
+}
+
+class Y extends X {
+    void display() {
+        System.out.println("Y display");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        X obj = new Y();
+        obj.display();
+    }
+}
+A) Compilation Error
+B) Runtime Error
+C) Y display
+D) No Output
+
+✔ Answer: C)
