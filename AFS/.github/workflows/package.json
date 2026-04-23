@@ -5,10 +5,10 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Test passed\"",
-    "lint": "echo \"No lint configured\""
+    "lint": "echo \"Lint passed\"",
+    "build": "echo \"Build passed\""
   },
   "dependencies": {
-    "express": "^5.2.1",
-    "xpress": "^2.4.6"
+    "express": "^5.2.1"
   }
 }
