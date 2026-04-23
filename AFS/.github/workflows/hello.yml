@@ -9,21 +9,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install Dependencies
+      - name: Install
         run: npm install
 
-      - name: Run Test
+      - name: Test
         run: npm test
 
-      - name: Start Server and Test API
+      - name: Run Server
         run: |
           node server.js &
           sleep 5
